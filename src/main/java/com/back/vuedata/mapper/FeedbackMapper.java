@@ -9,6 +9,7 @@ import java.util.List;
 @Mapper
 public interface FeedbackMapper {
 
+   //查找反馈
    @Select("SELECT * FROM feedback")
    List<Feedback> findAll();
 } 

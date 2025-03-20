@@ -12,6 +12,7 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserMapper userMapper;
 
+    //用户注册
     @Override
     public User register(User user) throws RuntimeException {
         // 检查必填项
@@ -44,6 +45,7 @@ public class UserServiceImpl implements UserService {
         return user;
     }
 
+    //用户登陆
     @Override
     public User login(String studentId, String password) throws RuntimeException {
         User user = userMapper.findUserByStudentId(studentId);
@@ -53,6 +55,7 @@ public class UserServiceImpl implements UserService {
         return user;
     }
 
+    //修改密码
     @Override
     public void changePassword(String studentId, String oldPassword, String newPassword, String confirmPassword) throws RuntimeException {
         // 检查新密码和确认密码是否一致
@@ -70,6 +73,7 @@ public class UserServiceImpl implements UserService {
         userMapper.updatePassword(studentId, newPassword);
     }
 
+    //更新信息
     @Override
     public User updateProfile(User user) throws RuntimeException {
         // 先检查用户是否存在
