@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 public class OrderServiceImpl implements OrderService {
@@ -15,11 +16,19 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     private OrderMapper orderMapper;
 
+//发布订单
     @Override
     public void publishOrder(Orders orders) {
         orders.setAcceptorId(null);
         orders.setAcceptorAt(null);
+        orders.setStatus("1");
         orders.setCreatedAt(Timestamp.valueOf(LocalDateTime.now()));
         orderMapper.insertOrder(orders);
+    }
+
+//获取已发布的订单
+    @Override
+    public List<Orders> getAllOrders() {
+        return orderMapper.getAllOrders();
     }
 } 
