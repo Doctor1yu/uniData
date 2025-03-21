@@ -19,7 +19,7 @@ public interface UserMapper {
     void updatePassword(@Param("studentId") String studentId, @Param("newPassword") String newPassword);
 
     //更新信息
-    @Update("UPDATE user SET phone_number = #{phoneNumber}, nick_name = #{nickName}, avatar_url = #{avatarUrl} " +
+    @Update("UPDATE user SET phone_number = #{phoneNumber}, nick_name = #{nickName}, avatar_url = #{avatarUrl} ,updated_at = #{updatedAt}" +
             "WHERE student_id = #{studentId}")
     void updateProfile(User user);
 }

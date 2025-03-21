@@ -1,9 +1,9 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://47.76.54.29:3306/bishe
-    username: root
-    password: zyn20030527
+    url: jdbc:mysql://114.55.91.14:3306/bishe
+    username: bishe
+    password: cwn20030626
   data:
     redis:
       host: localhost

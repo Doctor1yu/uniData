@@ -6,6 +6,9 @@ import com.back.vuedata.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -76,6 +79,7 @@ public class UserServiceImpl implements UserService {
     //更新信息
     @Override
     public User updateProfile(User user) throws RuntimeException {
+        user.setUpdatedAt(Timestamp.valueOf(LocalDateTime.now()));
         // 先检查用户是否存在
         User existingUser = userMapper.findUserByStudentId(user.getStudentId());
         if (existingUser == null) {
