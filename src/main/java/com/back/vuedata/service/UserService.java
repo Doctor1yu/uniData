@@ -14,4 +14,7 @@ public interface UserService {
 
     // 更新用户信息
     User updateProfile(User user) throws RuntimeException;
+
+    // 根据学号查询用户信息
+    User findUserByStudentId(String studentId);
 }

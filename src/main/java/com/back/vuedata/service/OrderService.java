@@ -11,4 +11,7 @@ public interface OrderService {
 
     // 获取已发布的订单
     List<Orders> getAllOrders();
+
+    // 根据学号和状态查询订单
+    List<Orders> findOrdersByPublisherIdAndStatus(String publisherId, String status);
 } 

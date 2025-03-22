@@ -31,4 +31,9 @@ public class OrderServiceImpl implements OrderService {
     public List<Orders> getAllOrders() {
         return orderMapper.getAllOrders();
     }
+
+    @Override
+    public List<Orders> findOrdersByPublisherIdAndStatus(String publisherId, String status) {
+        return orderMapper.findOrdersByPublisherIdAndStatus(publisherId, status);
+    }
 } 

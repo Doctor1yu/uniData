@@ -90,4 +90,9 @@ public class UserServiceImpl implements UserService {
         userMapper.updateProfile(user);
         return userMapper.findUserByStudentId(user.getStudentId());
     }
+
+    @Override
+    public User findUserByStudentId(String studentId) {
+        return userMapper.findUserByStudentId(studentId);
+    }
 }
