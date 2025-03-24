@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.back</groupId>
-    <artifactId>vueData</artifactId>
+    <artifactId>uniData</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>vueData</name>
-    <description>vueData</description>
+    <description>uniData</description>
     <url/>
     <licenses>
         <license/>
