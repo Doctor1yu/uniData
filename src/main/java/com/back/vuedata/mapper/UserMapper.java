@@ -14,7 +14,7 @@ public interface UserMapper {
             "VALUES(#{studentId}, #{password}, #{phoneNumber}, #{nickName}, #{avatarUrl})")
     void insertUser(User user);
 
-    //根据学号更新密码(有问题）
+    //根据学号更新密码
     @Update("UPDATE user SET password = #{newPassword}, updated_at = now() WHERE student_id = #{studentId}")
     void updatePassword(@Param("studentId") String studentId, @Param("newPassword") String newPassword);
 
