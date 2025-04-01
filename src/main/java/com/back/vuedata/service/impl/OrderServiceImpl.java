@@ -16,7 +16,7 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     private OrderMapper orderMapper;
 
-//发布订单
+    //发布订单
     @Override
     public void publishOrder(Orders orders) {
         orders.setAcceptorId(null);
@@ -26,7 +26,7 @@ public class OrderServiceImpl implements OrderService {
         orderMapper.insertOrder(orders);
     }
 
-//获取已发布的订单
+    //获取已发布的订单
     @Override
     public List<Orders> getAllOrders() {
         return orderMapper.getAllOrders();
@@ -35,5 +35,10 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public List<Orders> findOrdersByPublisherIdAndStatus(String publisherId, String status) {
         return orderMapper.findOrdersByPublisherIdAndStatus(publisherId, status);
+    }
+
+    @Override
+    public List<Orders> findOrdersByReceiverIdAndStatus(String acceptorId, String status) {
+        return orderMapper.findOrdersByReceiverIdAndStatus(acceptorId, status);
     }
 } 

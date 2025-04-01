@@ -35,10 +35,18 @@ public class OrderController {
         return Result.success(orders);
     }
 
-    // 根据学号和状态查询订单
+    // 根据学号和状态查询订单（我的订单）
     @GetMapping("/orders/by-status")
     public Result getOrdersByStatus(@RequestParam String publisherId, @RequestParam String status) {
         List<Orders> orders = orderService.findOrdersByPublisherIdAndStatus(publisherId, status);
+        enrichOrdersWithUserInfo(orders);
+        return Result.success(orders);
+    }
+
+    // 根据接单者学号和状态查询订单（我的接单）
+    @GetMapping("/orders/received")
+    public Result getReceivedOrdersByStatus(@RequestParam String acceptorId, @RequestParam String status) {
+        List<Orders> orders = orderService.findOrdersByReceiverIdAndStatus(acceptorId, status);
         enrichOrdersWithUserInfo(orders);
         return Result.success(orders);
     }

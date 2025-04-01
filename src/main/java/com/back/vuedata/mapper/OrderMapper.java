@@ -20,7 +20,12 @@ public interface OrderMapper {
     @Select("SELECT * FROM orders WHERE status='1' ORDER BY created_at DESC")
     List<Orders> getAllOrders();
 
-    //根据学号和状态查询订单
+    //根据学号和状态查询订单(我的订单）
     @Select("SELECT * FROM orders WHERE publisher_id = #{publisherId} AND status = #{status} ORDER BY created_at DESC")
     List<Orders> findOrdersByPublisherIdAndStatus(@Param("publisherId") String publisherId, @Param("status") String status);
+
+    //根据接单者学号和状态查询订单（我的接单）
+    @Select("SELECT * FROM orders WHERE acceptor_id = #{acceptorId} AND status = #{status} ORDER BY created_at DESC")
+    List<Orders> findOrdersByReceiverIdAndStatus(@Param("acceptorId") String receiverId, @Param("status") String status);
+
 }
