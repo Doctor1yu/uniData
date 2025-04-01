@@ -65,6 +65,11 @@ public class UserServiceImpl implements UserService {
         if (!newPassword.equals(confirmPassword)) {
             throw new RuntimeException("新密码和确认密码不一致");
         }
+        
+        // 添加密码长度验证
+        if (newPassword.length() < 6 || newPassword.length() > 20) {
+            throw new RuntimeException("密码长度应在6到20个字符之间");
+        }
 
         // 查询用户信息
         User user = userMapper.findUserByStudentId(studentId);
@@ -76,16 +81,14 @@ public class UserServiceImpl implements UserService {
         userMapper.updatePassword(studentId, newPassword);
     }
 
-    //更新信息
     @Override
     public User updateProfile(User user) throws RuntimeException {
-        user.setUpdatedAt(Timestamp.valueOf(LocalDateTime.now()));
         // 先检查用户是否存在
         User existingUser = userMapper.findUserByStudentId(user.getStudentId());
         if (existingUser == null) {
             throw new RuntimeException("用户不存在");
         }
-        
+
         // 更新用户信息
         userMapper.updateProfile(user);
         return userMapper.findUserByStudentId(user.getStudentId());

@@ -34,10 +34,7 @@ public class UserController {
     }
 
     @PatchMapping("/changePassword")
-    public Result changePassword(@RequestParam String studentId,
-            @RequestParam String oldPassword,
-            @RequestParam String newPassword,
-            @RequestParam String confirmPassword) {
+    public Result changePassword(@RequestParam String studentId, @RequestParam String oldPassword, @RequestParam String newPassword, @RequestParam String confirmPassword) {
         try {
             userService.changePassword(studentId, oldPassword, newPassword, confirmPassword);
             return Result.success("密码修改成功");
@@ -47,8 +44,13 @@ public class UserController {
     }
 
     @PutMapping("/updateProfile")
-    public Result updateProfile(User user) {
+    public Result updateProfile(@RequestParam String studentId, @RequestParam String nickName, @RequestParam String phoneNumber) {
         try {
+            User user = new User();
+            user.setStudentId(studentId);
+            user.setNickName(nickName);
+            user.setPhoneNumber(phoneNumber);
+
             User updatedUser = userService.updateProfile(user);
             return Result.success(updatedUser);
         } catch (RuntimeException e) {

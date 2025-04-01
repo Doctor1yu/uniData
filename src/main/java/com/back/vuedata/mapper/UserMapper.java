@@ -14,12 +14,12 @@ public interface UserMapper {
             "VALUES(#{studentId}, #{password}, #{phoneNumber}, #{nickName}, #{avatarUrl})")
     void insertUser(User user);
 
-    //更新密码
-    @Update("UPDATE user SET password = #{newPassword} WHERE student_id = #{studentId}")
+    //根据学号更新密码(有问题）
+    @Update("UPDATE user SET password = #{newPassword}, updated_at = now() WHERE student_id = #{studentId}")
     void updatePassword(@Param("studentId") String studentId, @Param("newPassword") String newPassword);
 
-    //更新信息
-    @Update("UPDATE user SET phone_number = #{phoneNumber}, nick_name = #{nickName}, avatar_url = #{avatarUrl} ,updated_at = #{updatedAt}" +
+    //根据学号更新信息
+    @Update("UPDATE user SET phone_number = #{phoneNumber}, nick_name = #{nickName}, updated_at = now()" +
             "WHERE student_id = #{studentId}")
     void updateProfile(User user);
 }
