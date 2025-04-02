@@ -3,6 +3,7 @@ package com.back.vuedata.controller;
 import com.back.vuedata.pojo.Result;
 import com.back.vuedata.pojo.User;
 import com.back.vuedata.service.UserService;
+import com.back.vuedata.service.ApplicationsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,6 +13,9 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private ApplicationsService applicationsService;
 
     @PostMapping("/register")
     public Result register(User user) {
@@ -27,6 +31,12 @@ public class UserController {
     public Result login(@RequestParam String studentId, @RequestParam String password) {
         try {
             User user = userService.login(studentId, password);
+            
+            // 查询申请状态
+            String status = applicationsService.findStatusByStudentId(studentId);
+            
+            // 将用户信息和申请状态一起返回
+            user.setApplicationStatus(status); // 假设 User 类中添加了 applicationStatus 字段
             return Result.success(user);
         } catch (RuntimeException e) {
             return Result.error(e.getMessage());
