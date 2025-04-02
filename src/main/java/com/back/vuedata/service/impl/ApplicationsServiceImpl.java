@@ -40,4 +40,15 @@ public class ApplicationsServiceImpl implements ApplicationsService {
         String status = applicationsMapper.findStatusByStudentId(studentId);
         return status != null ? status : "未申请";
     }
+
+    @Override
+    public void resetStatus(String studentId) {
+        // 检查学号是否存在
+        if (userService.findUserByStudentId(studentId) == null) {
+            throw new RuntimeException("学号不存在");
+        }
+
+        // 更新状态为 "2"
+        applicationsMapper.updateStatusByStudentId(studentId);
+    }
 }

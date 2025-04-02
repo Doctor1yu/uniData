@@ -4,10 +4,7 @@ import com.back.vuedata.pojo.Applications;
 import com.back.vuedata.pojo.Result;
 import com.back.vuedata.service.ApplicationsService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/applications")
@@ -23,5 +20,15 @@ public class ApplicationsController {
         application.setApplyReason(applyReason);
         applicationsService.submitApplication(application);
         return Result.success("申请提交成功");
+    }
+
+    @PatchMapping("/reset-status")
+    public Result resetStatusByStudentId(@RequestParam String studentId) {
+        try {
+            applicationsService.resetStatus(studentId);
+            return Result.success("状态重置成功");
+        } catch (RuntimeException e) {
+            return Result.error(e.getMessage());
+        }
     }
 }
