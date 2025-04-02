@@ -41,4 +41,10 @@ public class OrderServiceImpl implements OrderService {
     public List<Orders> findOrdersByReceiverIdAndStatus(String acceptorId, String status) {
         return orderMapper.findOrdersByReceiverIdAndStatus(acceptorId, status);
     }
+
+    @Override
+    public void acceptOrder(Integer orderId, String acceptorId) {
+        Timestamp acceptorAt = Timestamp.valueOf(LocalDateTime.now());
+        orderMapper.acceptOrder(orderId, acceptorId, acceptorAt);
+    }
 } 

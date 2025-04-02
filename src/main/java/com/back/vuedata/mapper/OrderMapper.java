@@ -5,7 +5,9 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Update;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 @Mapper
@@ -27,5 +29,9 @@ public interface OrderMapper {
     //根据接单者学号和状态查询订单（我的接单）
     @Select("SELECT * FROM orders WHERE acceptor_id = #{acceptorId} AND status = #{status} ORDER BY created_at DESC")
     List<Orders> findOrdersByReceiverIdAndStatus(@Param("acceptorId") String receiverId, @Param("status") String status);
+
+    // 接单
+    @Update("UPDATE orders SET acceptor_id = #{acceptorId}, acceptor_at = #{acceptorAt}, status = '2' WHERE id = #{orderId}")
+    void acceptOrder(@Param("orderId") Integer orderId, @Param("acceptorId") String acceptorId, @Param("acceptorAt") Timestamp acceptorAt);
 
 }

@@ -17,4 +17,7 @@ public interface OrderService {
 
     // 根据接单者学号和状态查询订单（我的接单）
     List<Orders> findOrdersByReceiverIdAndStatus(String acceptorId, String status);
+
+    // 接单
+    void acceptOrder(Integer orderId, String acceptorId);
 } 

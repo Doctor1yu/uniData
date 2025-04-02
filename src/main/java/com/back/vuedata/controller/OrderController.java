@@ -51,6 +51,13 @@ public class OrderController {
         return Result.success(orders);
     }
 
+    // 接单
+    @PatchMapping("/orders/accept")
+    public Result acceptOrder(@RequestParam Integer orderId, @RequestParam String acceptorId) {
+        orderService.acceptOrder(orderId, acceptorId);
+        return Result.success();
+    }
+
     // 辅助方法：为订单添加发布者的 avatarUrl 和 nickName
     private void enrichOrdersWithUserInfo(List<Orders> orders) {
         for (Orders order : orders) {
