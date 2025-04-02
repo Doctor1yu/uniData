@@ -6,9 +6,6 @@ import com.back.vuedata.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
-
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -18,26 +15,6 @@ public class UserServiceImpl implements UserService {
     //用户注册
     @Override
     public User register(User user) throws RuntimeException {
-        // 检查必填项
-        if (user.getStudentId() == null || user.getStudentId().isEmpty()) {
-            throw new RuntimeException("学号不能为空");
-        }
-        if (user.getNickName() == null || user.getNickName().isEmpty()) {
-            throw new RuntimeException("昵称不能为空");
-        }
-        if (user.getPhoneNumber() == null || user.getPhoneNumber().isEmpty()) {
-            throw new RuntimeException("手机号不能为空");
-        }
-        if (user.getPassword() == null || user.getPassword().isEmpty()) {
-            throw new RuntimeException("密码不能为空");
-        }
-        if (user.getConfirmPassword() == null || user.getConfirmPassword().isEmpty()) {
-            throw new RuntimeException("确认密码不能为空");
-        }
-        if (!user.getPassword().equals(user.getConfirmPassword())) {
-            throw new RuntimeException("密码和确认密码不一致");
-        }
-
         // 检查学号是否已存在
         User existingUser = userMapper.findUserByStudentId(user.getStudentId());
         if (existingUser != null) {
