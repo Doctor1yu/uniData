@@ -75,4 +75,9 @@ public class UserServiceImpl implements UserService {
     public User findUserByStudentId(String studentId) {
         return userMapper.findUserByStudentId(studentId);
     }
+
+    @Override
+    public String findApplicationStatusByStudentId(String studentId) {
+        return userMapper.findApplicationStatusByStudentId(studentId);
+    }
 }

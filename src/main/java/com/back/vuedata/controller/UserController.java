@@ -17,6 +17,7 @@ public class UserController {
     @Autowired
     private ApplicationsService applicationsService;
 
+    // 用户注册功能
     @PostMapping("/register")
     public Result register(User user) {
         try {
@@ -27,6 +28,7 @@ public class UserController {
         }
     }
 
+    // 用户登录功能，同时返回用户的申请状态
     @PostMapping("/login")
     public Result login(@RequestParam String studentId, @RequestParam String password) {
         try {
@@ -43,6 +45,7 @@ public class UserController {
         }
     }
 
+    // 修改密码功能
     @PatchMapping("/changePassword")
     public Result changePassword(@RequestParam String studentId, @RequestParam String oldPassword, @RequestParam String newPassword, @RequestParam String confirmPassword) {
         try {
@@ -53,6 +56,7 @@ public class UserController {
         }
     }
 
+    // 更新用户个人信息功能
     @PutMapping("/updateProfile")
     public Result updateProfile(@RequestParam String studentId, @RequestParam String nickName, @RequestParam String phoneNumber) {
         try {
@@ -63,6 +67,23 @@ public class UserController {
 
             User updatedUser = userService.updateProfile(user);
             return Result.success(updatedUser);
+        } catch (RuntimeException e) {
+            return Result.error(e.getMessage());
+        }
+    }
+
+    // 获取用户申请状态功能
+    @GetMapping("/application-status")
+    public Result getApplicationStatusByStudentId(@RequestParam String studentId) {
+        try {
+            // 查询用户申请状态
+            String status = userService.findApplicationStatusByStudentId(studentId);
+            if (status == null) {
+                return Result.error("查无此学号或申请状态为空");
+            }
+
+            // 返回申请状态
+            return Result.success(status);
         } catch (RuntimeException e) {
             return Result.error(e.getMessage());
         }

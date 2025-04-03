@@ -13,15 +13,21 @@ public class ApplicationsController {
     @Autowired
     private ApplicationsService applicationsService;
 
+    // 提交学生申请
     @PostMapping("/submit")
     public Result submitApplication(@RequestParam String studentId, @RequestParam String applyReason) {
-        Applications application = new Applications();
-        application.setStudentId(studentId);
-        application.setApplyReason(applyReason);
-        applicationsService.submitApplication(application);
-        return Result.success("申请提交成功");
+        try {
+            Applications application = new Applications();
+            application.setStudentId(studentId);
+            application.setApplyReason(applyReason);
+            applicationsService.submitApplication(application);
+            return Result.success("申请提交成功");
+        } catch (RuntimeException e) {
+            return Result.error(e.getMessage());
+        }
     }
 
+    // 根据学生ID重置申请状态（重置的是user表中的application_status）
     @PatchMapping("/reset-status")
     public Result resetStatusByStudentId(@RequestParam String studentId) {
         try {

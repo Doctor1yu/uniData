@@ -16,6 +16,5 @@ public class User {
     private String status; //状态（1代表正常，2代表不正常）
     private Timestamp createdAt; // 创建时间
     private Timestamp updatedAt; // 更新时间
-    
-    private String applicationStatus; // 申请状态
+    private String applicationStatus; //申请状态（1:已提交，2:未提交，3:通过，4:拒绝）默认：2
 }

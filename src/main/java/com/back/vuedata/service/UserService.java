@@ -17,4 +17,7 @@ public interface UserService {
 
     // 根据学号查询用户信息
     User findUserByStudentId(String studentId);
+
+    //根据学号查询申请状态
+    String findApplicationStatusByStudentId(String studentId);
 }

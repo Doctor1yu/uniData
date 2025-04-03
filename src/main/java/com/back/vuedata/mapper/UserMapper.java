@@ -22,4 +22,16 @@ public interface UserMapper {
     @Update("UPDATE user SET phone_number = #{phoneNumber}, nick_name = #{nickName}, updated_at = now()" +
             "WHERE student_id = #{studentId}")
     void updateProfile(User user);
+
+    // 根据学号更新用户申请状态
+    @Update("UPDATE user SET application_status = #{status} WHERE student_id = #{studentId}")
+    void updateApplicationStatus(@Param("studentId") String studentId, @Param("status") String status);
+
+    // 根据学号更新申请状态为 '2'
+    @Update("UPDATE user SET application_status = '2' WHERE student_id = #{studentId}")
+    void updateStatusByStudentId(@Param("studentId") String studentId);
+
+    // 根据学号查询用户申请状态
+    @Select("SELECT application_status FROM user WHERE student_id = #{studentId}")
+    String findApplicationStatusByStudentId(@Param("studentId") String studentId);
 }
