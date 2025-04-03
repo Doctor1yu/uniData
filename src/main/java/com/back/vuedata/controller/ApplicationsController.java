@@ -37,4 +37,18 @@ public class ApplicationsController {
             return Result.error(e.getMessage());
         }
     }
+
+    // 根据学生ID查询最新申请记录
+    @GetMapping("/latest")
+    public Result findLatestApplicationByStudentId(@RequestParam String studentId) {
+        try {
+            Applications application = applicationsService.findLatestApplicationByStudentId(studentId);
+            if (application == null) {
+                return Result.success("该学生暂无申请记录");
+            }
+            return Result.success(application);
+        } catch (RuntimeException e) {
+            return Result.error(e.getMessage());
+        }
+    }
 }

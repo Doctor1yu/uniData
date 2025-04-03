@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 public class ApplicationsServiceImpl implements ApplicationsService {
@@ -66,5 +67,25 @@ public class ApplicationsServiceImpl implements ApplicationsService {
 
         // 只更新 user 表中的 applicationStatus 为 "2"
         userMapper.updateStatusByStudentId(studentId);
+    }
+
+    @Override
+    public Applications findLatestApplicationByStudentId(String studentId) {
+        // 检查学号是否存在
+        if (userService.findUserByStudentId(studentId) == null) {
+            throw new RuntimeException("学号不存在");
+        }
+
+        // 查询该学生的最新申请记录
+        List<Applications> applications = applicationsMapper.findApplicationsByStudentId(studentId);
+        if (applications.isEmpty()) {
+            return null; // 如果没有申请记录，返回 null
+        }
+
+        // 返回最新的申请记录（按申请时间降序排序后的第一条）
+        return applications.stream()
+                .sorted((a1, a2) -> a2.getAppliedAt().compareTo(a1.getAppliedAt()))
+                .findFirst()
+                .orElse(null);
     }
 }
