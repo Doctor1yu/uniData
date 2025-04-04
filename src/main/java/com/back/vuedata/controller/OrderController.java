@@ -65,6 +65,13 @@ public class OrderController {
         return Result.success();
     }
 
+    // 取消订单
+    @PatchMapping("/orders/cancel")
+    public Result cancelOrder(@RequestParam Integer orderId) {
+        orderService.cancelOrder(orderId);
+        return Result.success();
+    }
+
     // 辅助方法：为订单添加发布者的 avatarUrl 和 nickName
     private void enrichOrdersWithUserInfo(List<Orders> orders) {
         for (Orders order : orders) {

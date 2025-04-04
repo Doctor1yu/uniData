@@ -23,4 +23,7 @@ public interface OrderService {
 
     // 根据订单ID更新订单状态为3
     void updateOrderStatusTo3(Integer orderId);
+
+    // 取消订单
+    void cancelOrder(Integer orderId);
 } 

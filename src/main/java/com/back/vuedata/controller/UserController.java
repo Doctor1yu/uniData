@@ -74,7 +74,7 @@ public class UserController {
 
     //根据学号查找学生信息
     @GetMapping("/find")
-    public Result<User> findUserByStudentId(@RequestParam String studentId) {
+    public Result findUserByStudentId(@RequestParam String studentId) {
         try {
             User user = userService.findUserByStudentId(studentId);
             if (user == null) {

@@ -38,4 +38,8 @@ public interface OrderMapper {
     @Update("UPDATE orders SET status = '3', acceptor_at = #{acceptorAt} WHERE id = #{orderId}")
     void updateOrderStatusTo3(@Param("orderId") Integer orderId, @Param("acceptorAt") Timestamp acceptorAt);
 
+    // 取消订单
+    @Update("UPDATE orders SET acceptor_id = NULL, acceptor_at = NULL, status = '1' WHERE id = #{orderId}")
+    void cancelOrder(@Param("orderId") Integer orderId);
+
 }
