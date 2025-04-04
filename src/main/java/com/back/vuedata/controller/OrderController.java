@@ -58,6 +58,13 @@ public class OrderController {
         return Result.success();
     }
 
+    // 根据订单ID更新订单状态为3
+    @PatchMapping("/orders/update-status")
+    public Result updateOrderStatusTo3(@RequestParam Integer orderId) {
+        orderService.updateOrderStatusTo3(orderId);
+        return Result.success();
+    }
+
     // 辅助方法：为订单添加发布者的 avatarUrl 和 nickName
     private void enrichOrdersWithUserInfo(List<Orders> orders) {
         for (Orders order : orders) {

@@ -47,4 +47,10 @@ public class OrderServiceImpl implements OrderService {
         Timestamp acceptorAt = Timestamp.valueOf(LocalDateTime.now());
         orderMapper.acceptOrder(orderId, acceptorId, acceptorAt);
     }
+
+    @Override
+    public void updateOrderStatusTo3(Integer orderId) {
+        Timestamp acceptorAt = Timestamp.valueOf(LocalDateTime.now());
+        orderMapper.updateOrderStatusTo3(orderId, acceptorAt);
+    }
 } 

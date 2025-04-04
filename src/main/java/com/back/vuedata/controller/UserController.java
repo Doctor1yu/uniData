@@ -72,18 +72,15 @@ public class UserController {
         }
     }
 
-    // 获取用户申请状态功能
-    @GetMapping("/application-status")
-    public Result getApplicationStatusByStudentId(@RequestParam String studentId) {
+    //根据学号查找学生信息
+    @GetMapping("/find")
+    public Result<User> findUserByStudentId(@RequestParam String studentId) {
         try {
-            // 查询用户申请状态
-            String status = userService.findApplicationStatusByStudentId(studentId);
-            if (status == null) {
-                return Result.error("查无此学号或申请状态为空");
+            User user = userService.findUserByStudentId(studentId);
+            if (user == null) {
+                return Result.error("查无此学号");
             }
-
-            // 返回申请状态
-            return Result.success(status);
+            return Result.success(user);
         } catch (RuntimeException e) {
             return Result.error(e.getMessage());
         }

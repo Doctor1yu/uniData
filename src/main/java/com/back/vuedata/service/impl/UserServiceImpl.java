@@ -58,6 +58,7 @@ public class UserServiceImpl implements UserService {
         userMapper.updatePassword(studentId, newPassword);
     }
 
+    // 更新信息
     @Override
     public User updateProfile(User user) throws RuntimeException {
         // 先检查用户是否存在
@@ -71,13 +72,9 @@ public class UserServiceImpl implements UserService {
         return userMapper.findUserByStudentId(user.getStudentId());
     }
 
+    // 根据学号查用户信息
     @Override
     public User findUserByStudentId(String studentId) {
         return userMapper.findUserByStudentId(studentId);
-    }
-
-    @Override
-    public String findApplicationStatusByStudentId(String studentId) {
-        return userMapper.findApplicationStatusByStudentId(studentId);
     }
 }
