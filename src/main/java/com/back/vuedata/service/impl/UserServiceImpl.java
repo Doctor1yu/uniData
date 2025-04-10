@@ -3,6 +3,7 @@ package com.back.vuedata.service.impl;
 import com.back.vuedata.mapper.UserMapper;
 import com.back.vuedata.pojo.User;
 import com.back.vuedata.service.UserService;
+import com.back.vuedata.utils.Md5Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +21,8 @@ public class UserServiceImpl implements UserService {
         if (existingUser != null) {
             throw new RuntimeException("该学号已注册");
         }
+        // 密码加密存储
+        user.setPassword(Md5Util.getMD5String(user.getPassword()));
         // 插入新用户
         userMapper.insertUser(user);
         return user;
@@ -29,7 +32,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User login(String studentId, String password) throws RuntimeException {
         User user = userMapper.findUserByStudentId(studentId);
-        if (user == null || !user.getPassword().equals(password)) {
+        if (user == null || !Md5Util.checkPassword(password, user.getPassword())) {
             throw new RuntimeException("学号或密码错误");
         }
         return user;
@@ -50,12 +53,12 @@ public class UserServiceImpl implements UserService {
 
         // 查询用户信息
         User user = userMapper.findUserByStudentId(studentId);
-        if (user == null || !user.getPassword().equals(oldPassword)) {
+        if (user == null || !Md5Util.checkPassword(oldPassword, user.getPassword())) {
             throw new RuntimeException("原密码错误");
         }
 
-        // 更新密码
-        userMapper.updatePassword(studentId, newPassword);
+        // 更新密码（加密后存储）
+        userMapper.updatePassword(studentId, Md5Util.getMD5String(newPassword));
     }
 
     // 更新信息
