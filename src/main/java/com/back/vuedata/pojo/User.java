@@ -17,4 +17,5 @@ public class User {
     private Timestamp createdAt; // 创建时间
     private Timestamp updatedAt; // 更新时间
     private String applicationStatus; //申请状态（1:已提交，2:未提交，3:通过，4:拒绝）默认：2
+    private String collectUrl; // 收款码
 }

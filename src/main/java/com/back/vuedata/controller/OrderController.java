@@ -5,20 +5,29 @@ import com.back.vuedata.pojo.User;
 import com.back.vuedata.pojo.Result;
 import com.back.vuedata.service.OrderService;
 import com.back.vuedata.service.UserService;
+import com.back.vuedata.utils.ImageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/function")
 public class OrderController {
 
+    // 自定义上传路径
+    private static final String SEND_URL_PATH = "/uni/send_url";
+
     @Autowired
     private OrderService orderService;
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private ImageUtil imageUtil;
 
     // 发布订单
     @PostMapping("/publish")
@@ -58,11 +67,21 @@ public class OrderController {
         return Result.success();
     }
 
-    // 根据订单ID更新订单状态为3
+    // 根据订单ID更新订单状态为3并上传送达照片
     @PatchMapping("/orders/update-status")
-    public Result updateOrderStatusTo3(@RequestParam Integer orderId) {
-        orderService.updateOrderStatusTo3(orderId);
-        return Result.success();
+    public Result updateOrderStatusTo3(@RequestParam Integer orderId, @RequestParam MultipartFile sendImage) {
+        try {
+            // 上传送达照片
+            String sendUrl = imageUtil.uploadImage(sendImage, SEND_URL_PATH);
+            
+            // 更新订单状态和送达照片URL
+            orderService.updateOrderStatusTo3(orderId, sendUrl);
+            return Result.success("订单已完成");
+        } catch (IOException e) {
+            return Result.error("照片上传失败：" + e.getMessage());
+        } catch (RuntimeException e) {
+            return Result.error(e.getMessage());
+        }
     }
 
     // 取消订单

@@ -11,8 +11,8 @@ import java.util.List;
 @Mapper
 public interface ApplicationsMapper {
     // 插入新的申请记录
-    @Insert("INSERT INTO applications (student_id, apply_reason, applied_at) " +
-            "VALUES (#{studentId}, #{applyReason}, #{appliedAt})")
+    @Insert("INSERT INTO applications (student_id, apply_reason, collect_url, applied_at) " +
+            "VALUES (#{studentId}, #{applyReason}, #{collectUrl}, #{appliedAt})")
     void insertApplication(Applications application);
 
     // 根据学号查询所有申请记录

@@ -18,6 +18,7 @@ public class Orders {
     private String status; // 订单状态（1代表未接单、2代表进行中、3代表已完成）
     private String publisherId; // 发布者学号
     private String acceptorId; // 接单者学号（不插入）
+    private String sendUrl; // 送达地址照片url
     private Timestamp createdAt; // 创建时间
     private Timestamp acceptorAt; // 接单时间（不插入）
     
