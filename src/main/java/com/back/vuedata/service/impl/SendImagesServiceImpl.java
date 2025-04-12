@@ -21,7 +21,7 @@ public class SendImagesServiceImpl implements SendImagesService {
     @Override
     public String uploadImage(Integer orderId, MultipartFile file) throws IOException {
     // 调用 ImageUtil 上传图片
-    String imageUrl = imageUtil.uploadImage(file, "images/");
+    String imageUrl = imageUtil.uploadImage(file, "uni/send_url/");
 
     // 创建 Images 对象并设置属性
     SendImages image = new SendImages();
