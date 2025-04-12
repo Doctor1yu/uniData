@@ -1,6 +1,6 @@
 package com.back.vuedata.controller;
 
-import com.back.vuedata.service.ImagesService;
+import com.back.vuedata.service.SendImagesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,16 +14,16 @@ import java.io.IOException;
 
 @RestController
 @RequestMapping("/api/images")
-public class ImagesController {
+public class SendImagesController {
     @Autowired
-    private ImagesService imagesService;
+    private SendImagesService sendImagesService;
 
     @PostMapping("/upload")
     public ResponseEntity<String> uploadImage(
             @RequestParam("orderId") Integer orderId,
             @RequestParam("file") MultipartFile file){
         try {
-            String imageUrl = imagesService.uploadImage(orderId, file);
+            String imageUrl = sendImagesService.uploadImage(orderId, file);
             return ResponseEntity.ok(imageUrl);
         } catch (IOException e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("上传失败: " + e.getMessage());

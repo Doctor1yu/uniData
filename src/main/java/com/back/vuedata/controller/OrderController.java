@@ -67,21 +67,11 @@ public class OrderController {
         return Result.success();
     }
 
-    // 根据订单ID更新订单状态为3并上传送达照片
+    // 根据订单ID更新订单状态为3
     @PatchMapping("/orders/update-status")
-    public Result updateOrderStatusTo3(@RequestParam Integer orderId, @RequestParam MultipartFile sendImage) {
-        try {
-            // 上传送达照片
-            String sendUrl = imageUtil.uploadImage(sendImage, SEND_URL_PATH);
-            
-            // 更新订单状态和送达照片URL
-            orderService.updateOrderStatusTo3(orderId, sendUrl);
-            return Result.success("订单已完成");
-        } catch (IOException e) {
-            return Result.error("照片上传失败：" + e.getMessage());
-        } catch (RuntimeException e) {
-            return Result.error(e.getMessage());
-        }
+    public Result updateOrderStatusTo3(@RequestParam Integer orderId) {
+        orderService.updateOrderStatusTo3(orderId);
+        return Result.success();
     }
 
     // 取消订单

@@ -21,8 +21,8 @@ public interface OrderService {
     // 接单
     void acceptOrder(Integer orderId, String acceptorId);
 
-    // 根据订单ID更新订单状态为3并设置送达照片URL
-    void updateOrderStatusTo3(Integer orderId, String sendUrl);
+    // 根据订单ID更新订单状态为3
+    void updateOrderStatusTo3(Integer orderId);
 
     // 取消订单
     void cancelOrder(Integer orderId);

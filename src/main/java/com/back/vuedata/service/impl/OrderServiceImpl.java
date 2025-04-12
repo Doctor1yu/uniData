@@ -49,9 +49,9 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public void updateOrderStatusTo3(Integer orderId, String sendUrl) {
+    public void updateOrderStatusTo3(Integer orderId) {
         Timestamp acceptorAt = Timestamp.valueOf(LocalDateTime.now());
-        orderMapper.updateOrderStatusTo3(orderId, acceptorAt, sendUrl);
+        orderMapper.updateOrderStatusTo3(orderId, acceptorAt);
     }
 
     @Override
