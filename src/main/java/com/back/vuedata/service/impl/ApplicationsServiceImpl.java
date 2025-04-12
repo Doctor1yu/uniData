@@ -1,9 +1,12 @@
 package com.back.vuedata.service.impl;
 
 import com.back.vuedata.mapper.ApplicationsMapper;
+import com.back.vuedata.mapper.CollectImagesMapper;
 import com.back.vuedata.mapper.UserMapper;
 import com.back.vuedata.pojo.Applications;
+import com.back.vuedata.pojo.CollectImages;
 import com.back.vuedata.service.ApplicationsService;
+import com.back.vuedata.service.CollectImagesService;
 import com.back.vuedata.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,12 +27,21 @@ public class ApplicationsServiceImpl implements ApplicationsService {
     @Autowired
     private UserMapper userMapper;
 
-    // 提交申请功能
+    @Autowired
+    private CollectImagesService collectImagesService;
+
     @Override
     public void submitApplication(Applications application) {
         // 检查学号是否存在
         if (userService.findUserByStudentId(application.getStudentId()) == null) {
             throw new RuntimeException("学号不存在");
+        }
+
+        // 查找最新的 collectUrl
+        String collectUrl = collectImagesService.findLatestCollectUrlByStudentId(application.getStudentId());
+        System.out.println("collectUrl: " + collectUrl);
+        if (collectUrl != null) {
+            application.setCollectUrl(collectUrl);
         }
 
         // 设置申请时间为当前时间

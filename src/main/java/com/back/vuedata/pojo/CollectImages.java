@@ -6,5 +6,5 @@ import lombok.Data;
 public class CollectImages {
     private Integer id;
     private String studentId;
-    private String collectImage;
+    private String collectUrl;
 }

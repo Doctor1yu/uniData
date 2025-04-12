@@ -5,4 +5,5 @@ import java.io.IOException;
 
 public interface CollectImagesService {
     String uploadCollectImage(String studentId, MultipartFile file) throws IOException;
+    String findLatestCollectUrlByStudentId(String studentId);
 }

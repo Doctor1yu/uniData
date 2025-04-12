@@ -3,10 +3,7 @@ package com.back.vuedata.controller;
 import com.back.vuedata.pojo.Result;
 import com.back.vuedata.service.CollectImagesService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -26,6 +23,20 @@ public class CollectImagesController {
             return Result.success(imageUrl);
         } catch (IOException e) {
             return Result.error("上传失败: " + e.getMessage());
+        }
+    }
+
+    // 新增：根据 studentId 获取最新的 collect_url
+    @GetMapping("/latest-url")
+    public Result<String> findLatestCollectUrlByStudentId(@RequestParam("studentId") String studentId) {
+        try {
+            String collectUrl = collectImagesService.findLatestCollectUrlByStudentId(studentId);
+            if (collectUrl == null) {
+                return Result.success("未找到该学生的 collect_url");
+            }
+            return Result.success(collectUrl);
+        } catch (Exception e) {
+            return Result.error("查询失败: " + e.getMessage());
         }
     }
 }

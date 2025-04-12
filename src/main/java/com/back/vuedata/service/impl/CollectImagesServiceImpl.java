@@ -19,6 +19,16 @@ public class CollectImagesServiceImpl implements CollectImagesService {
     private ImageUtil imageUtil;
 
     @Override
+    public String findLatestCollectUrlByStudentId(String studentId) {
+        CollectImages collectImages = collectImagesMapper.findLatestByStudentId(studentId);
+        System.out.println(collectImages);
+        if (collectImages == null) {
+            return null;
+        }
+        return collectImages.getCollectUrl();
+    }
+
+    @Override
     public String uploadCollectImage(String studentId, MultipartFile file) throws IOException {
         // 调用 ImageUtil 上传图片
         String imageUrl = imageUtil.uploadImage(file, "uni/collect_url/");
@@ -26,7 +36,7 @@ public class CollectImagesServiceImpl implements CollectImagesService {
         // 创建 CollectImages 对象并设置属性
         CollectImages image = new CollectImages();
         image.setStudentId(studentId);
-        image.setCollectImage(imageUrl);
+        image.setCollectUrl(imageUrl);
 
         // 将图片信息存储到数据库
         collectImagesMapper.insert(image);
