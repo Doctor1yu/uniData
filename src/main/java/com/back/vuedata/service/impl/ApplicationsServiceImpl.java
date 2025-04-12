@@ -30,6 +30,7 @@ public class ApplicationsServiceImpl implements ApplicationsService {
     @Autowired
     private CollectImagesService collectImagesService;
 
+    // 提交申请
     @Override
     public void submitApplication(Applications application) {
         // 检查学号是否存在
@@ -39,7 +40,6 @@ public class ApplicationsServiceImpl implements ApplicationsService {
 
         // 查找最新的 collectUrl
         String collectUrl = collectImagesService.findLatestCollectUrlByStudentId(application.getStudentId());
-        System.out.println("collectUrl: " + collectUrl);
         if (collectUrl != null) {
             application.setCollectUrl(collectUrl);
         }
@@ -81,6 +81,7 @@ public class ApplicationsServiceImpl implements ApplicationsService {
         userMapper.updateStatusByStudentId(studentId);
     }
 
+    // 查询最新申请
     @Override
     public Applications findLatestApplicationByStudentId(String studentId) {
         // 检查学号是否存在

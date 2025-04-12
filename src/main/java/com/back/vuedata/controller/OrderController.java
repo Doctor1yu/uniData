@@ -4,6 +4,7 @@ import com.back.vuedata.pojo.Orders;
 import com.back.vuedata.pojo.User;
 import com.back.vuedata.pojo.Result;
 import com.back.vuedata.service.OrderService;
+import com.back.vuedata.service.SendImagesService;
 import com.back.vuedata.service.UserService;
 import com.back.vuedata.utils.ImageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,9 +18,6 @@ import java.util.List;
 @RequestMapping("/api/function")
 public class OrderController {
 
-    // 自定义上传路径
-    private static final String SEND_URL_PATH = "/uni/send_url";
-
     @Autowired
     private OrderService orderService;
 
@@ -27,7 +25,7 @@ public class OrderController {
     private UserService userService;
 
     @Autowired
-    private ImageUtil imageUtil;
+    private SendImagesService sendImagesService;
 
     // 发布订单
     @PostMapping("/publish")
@@ -70,7 +68,11 @@ public class OrderController {
     // 根据订单ID更新订单状态为3
     @PatchMapping("/orders/update-status")
     public Result updateOrderStatusTo3(@RequestParam Integer orderId) {
-        orderService.updateOrderStatusTo3(orderId);
+        // 获取最新的 send_url
+        String sendUrl = sendImagesService.findLatestSendUrlByOrderId(orderId);
+
+        // 更新订单状态并设置 send_url
+        orderService.updateOrderStatusTo3(orderId, sendUrl);
         return Result.success();
     }
 

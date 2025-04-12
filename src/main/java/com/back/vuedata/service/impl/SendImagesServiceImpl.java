@@ -32,5 +32,14 @@ public class SendImagesServiceImpl implements SendImagesService {
     sendImagesMapper.insert(image); // 需要在 ImagesMapper 中定义 insert 方法
 
     return imageUrl; // 返回图片的 URL
-}
+    }
+
+    @Override
+    public String findLatestSendUrlByOrderId(Integer orderId) {
+        SendImages sendImage = sendImagesMapper.findLatestByOrderId(orderId);
+        if (sendImage == null) {
+            return null;
+        }
+        return sendImage.getSendUrl();
+    }
 }

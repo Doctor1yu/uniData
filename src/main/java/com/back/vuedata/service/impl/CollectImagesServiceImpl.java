@@ -19,16 +19,6 @@ public class CollectImagesServiceImpl implements CollectImagesService {
     private ImageUtil imageUtil;
 
     @Override
-    public String findLatestCollectUrlByStudentId(String studentId) {
-        CollectImages collectImages = collectImagesMapper.findLatestByStudentId(studentId);
-        System.out.println(collectImages);
-        if (collectImages == null) {
-            return null;
-        }
-        return collectImages.getCollectUrl();
-    }
-
-    @Override
     public String uploadCollectImage(String studentId, MultipartFile file) throws IOException {
         // 调用 ImageUtil 上传图片
         String imageUrl = imageUtil.uploadImage(file, "uni/collect_url/");
@@ -42,5 +32,14 @@ public class CollectImagesServiceImpl implements CollectImagesService {
         collectImagesMapper.insert(image);
 
         return imageUrl;
+    }
+
+    @Override
+    public String findLatestCollectUrlByStudentId(String studentId) {
+        CollectImages collectImages = collectImagesMapper.findLatestByStudentId(studentId);
+        if (collectImages == null) {
+            return null;
+        }
+        return collectImages.getCollectUrl();
     }
 }

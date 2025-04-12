@@ -34,9 +34,9 @@ public interface OrderMapper {
     @Update("UPDATE orders SET acceptor_id = #{acceptorId}, acceptor_at = #{acceptorAt}, status = '2' WHERE id = #{orderId}")
     void acceptOrder(@Param("orderId") Integer orderId, @Param("acceptorId") String acceptorId, @Param("acceptorAt") Timestamp acceptorAt);
 
-    // 根据订单ID更新订单状态为3并更新时间
-    @Update("UPDATE orders SET status = '3', acceptor_at = #{acceptorAt} WHERE id = #{orderId}")
-    void updateOrderStatusTo3(@Param("orderId") Integer orderId, @Param("acceptorAt") Timestamp acceptorAt);
+    // 根据订单ID更新订单状态为3并设置send_url
+    @Update("UPDATE orders SET status = '3', send_url = #{sendUrl}, acceptor_at = #{acceptorAt} WHERE id = #{orderId}")
+    void updateOrderStatusTo3(@Param("orderId") Integer orderId, @Param("acceptorAt") Timestamp acceptorAt, @Param("sendUrl") String sendUrl);
 
     // 取消订单
     @Update("UPDATE orders SET acceptor_id = NULL, acceptor_at = NULL, status = '1', send_url = NULL WHERE id = #{orderId}")
