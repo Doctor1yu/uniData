@@ -62,9 +62,15 @@ public class OrderServiceImpl implements OrderService {
         orderMapper.updateOrderStatusTo3(orderId, acceptorAt, sendUrl);
     }
 
-    //取消订单
+    //接单者取消订单
     @Override
-    public void cancelOrder(Integer orderId) {
-        orderMapper.cancelOrder(orderId);
+    public void acceptorCancelOrder(Integer orderId) {
+        orderMapper.acceptorCancelOrder(orderId);
+    }
+
+    //发布者取消订单
+    @Override
+    public void publisherCancelOrder(Integer orderId) {
+        orderMapper.publisherCancelOrder(orderId);
     }
 } 

@@ -76,11 +76,22 @@ public class OrderController {
         return Result.success();
     }
 
-    // 取消订单
-    @PatchMapping("/orders/cancel")
-    public Result cancelOrder(@RequestParam Integer orderId) {
-        orderService.cancelOrder(orderId);
+    // 接单者取消订单
+    @PatchMapping("/orders/acceptor-cancel")
+    public Result acceptorCancelOrder(@RequestParam Integer orderId) {
+        orderService.acceptorCancelOrder(orderId);
         return Result.success();
+    }
+
+    // 发布者取消订单
+    @DeleteMapping("/orders/publisher-cancel")
+    public Result publisherCancelOrder(@RequestParam Integer orderId) {
+        try {
+            orderService.publisherCancelOrder(orderId);
+            return Result.success("订单删除成功");
+        } catch (Exception e) {
+            return Result.error("订单删除失败: " + e.getMessage());
+        }
     }
 
     // 辅助方法：为订单添加发布者的 avatarUrl 和 nickName
@@ -95,5 +106,25 @@ public class OrderController {
                 }
             }
         }
+    }
+
+    // 获取接单者收款码
+    @GetMapping("/orders/acceptor-collect-url")
+    public Result getAcceptorCollectUrl(@RequestParam String acceptorId) {
+        // 根据 acceptorId 查找用户信息
+        User user = userService.findUserByStudentId(acceptorId);
+        
+        // 检查用户是否存在
+        if (user == null) {
+            return Result.error("未找到接单者的用户信息");
+        }
+        
+        // 获取并返回 collectUrl
+        String collectUrl = user.getCollectUrl();
+        if (collectUrl == null) {
+            return Result.error("未找到接单者的收款码");
+        }
+        
+        return Result.success(collectUrl);
     }
 }

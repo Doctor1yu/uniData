@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.Delete;
 
 import java.sql.Timestamp;
 import java.util.List;
@@ -38,8 +39,12 @@ public interface OrderMapper {
     @Update("UPDATE orders SET status = '3', send_url = #{sendUrl}, acceptor_at = #{acceptorAt} WHERE id = #{orderId}")
     void updateOrderStatusTo3(@Param("orderId") Integer orderId, @Param("acceptorAt") Timestamp acceptorAt, @Param("sendUrl") String sendUrl);
 
-    // 取消订单
+    // 接单者取消订单
     @Update("UPDATE orders SET acceptor_id = NULL, acceptor_at = NULL, status = '1', send_url = NULL WHERE id = #{orderId}")
-    void cancelOrder(@Param("orderId") Integer orderId);
+    void acceptorCancelOrder(@Param("orderId") Integer orderId);
+
+    // 发布者取消订单
+    @Delete("DELETE FROM orders WHERE id = #{orderId}")
+    void publisherCancelOrder(@Param("orderId") Integer orderId);
 
 }

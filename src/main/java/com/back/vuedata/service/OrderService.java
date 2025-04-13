@@ -24,6 +24,9 @@ public interface OrderService {
     // 根据订单ID更新订单状态为3并设置send_url
     void updateOrderStatusTo3(Integer orderId, String sendUrl);
 
-    // 取消订单
-    void cancelOrder(Integer orderId);
+    // 接单者取消订单
+    void acceptorCancelOrder(Integer orderId);
+
+    // 发布者取消订单
+    void publisherCancelOrder(Integer orderId);
 } 
