@@ -30,4 +30,9 @@ public class FeedbackServiceImpl implements FeedbackService {
         // 插入反馈
         feedbackMapper.insertFeedback(feedback);
     }
+
+    @Override
+    public int updateFeedbackStatusById(int id, int status) {
+        return feedbackMapper.updateFeedbackStatusById(id, status);
+    }
 } 

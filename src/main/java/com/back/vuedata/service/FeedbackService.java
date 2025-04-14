@@ -10,4 +10,6 @@ public interface FeedbackService {
 
     // 发布反馈
     void publishFeedback(Feedback feedback);
+
+    int updateFeedbackStatusById(int id, int status);
 } 

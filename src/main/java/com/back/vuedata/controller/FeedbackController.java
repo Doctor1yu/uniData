@@ -28,4 +28,14 @@ public class FeedbackController {
         feedbackService.publishFeedback(feedback);
         return Result.success(feedback);
     }
+
+    @PatchMapping("/update")
+    public Result updateFeedbackStatusById(@RequestParam int id) {
+        int result = feedbackService.updateFeedbackStatusById(id, 3);
+        if (result > 0) {
+            return Result.success();
+        } else {
+            return Result.error("更新失败，反馈可能不存在");
+        }
+    }
 } 
