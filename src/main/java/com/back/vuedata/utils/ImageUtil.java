@@ -18,8 +18,8 @@ public class ImageUtil {
     // 七牛云对象存储的关键配置
     private static final String ACCESS_KEY = "gdZkv3g6q5n-xH_Xr28Gsq_QTfefkJtc_GSiHH9R";
     private static final String SECRET_KEY = "8DPElj36n9s1LPzxARynWOyUfcYO6F4ysB28Q9RS";
-    private static final String BUCKET_NAME = "bishe-hwo";
-    private static final String DOMAIN = "stm89m2wy.hd-bkt.clouddn.com";
+    private static final String BUCKET_NAME = "hwo-bishe";
+    private static final String DOMAIN = "image.starhub666.cn";
 
     // 七牛云上传的核心组件
     private final Auth auth = Auth.create(ACCESS_KEY, SECRET_KEY);

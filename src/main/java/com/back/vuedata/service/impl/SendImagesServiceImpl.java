@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-
+import java.sql.Timestamp;
 @Service
 public class SendImagesServiceImpl implements SendImagesService {
     @Autowired
@@ -27,7 +27,7 @@ public class SendImagesServiceImpl implements SendImagesService {
     SendImages image = new SendImages();
     image.setOrderId(orderId);
     image.setSendUrl(imageUrl);
-
+    image.setCreatedAt(new Timestamp(System.currentTimeMillis()));
     // 将图片信息存储到数据库
     sendImagesMapper.insert(image); // 需要在 ImagesMapper 中定义 insert 方法
 

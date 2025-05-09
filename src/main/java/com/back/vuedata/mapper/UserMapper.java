@@ -28,7 +28,7 @@ public interface UserMapper {
     void updateApplicationStatus(@Param("studentId") String studentId, @Param("status") String status);
 
     // 根据学号更新申请状态为 '2'
-    @Update("UPDATE user SET application_status = '2' WHERE student_id = #{studentId}")
+    @Update("UPDATE user SET application_status = '2', role = 1 WHERE student_id = #{studentId}")
     void updateStatusByStudentId(@Param("studentId") String studentId);
 
     // 根据学号查询用户申请状态

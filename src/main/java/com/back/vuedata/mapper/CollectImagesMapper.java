@@ -6,11 +6,9 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Select;
 
-import java.util.List;
-
 @Mapper
 public interface CollectImagesMapper {
-    @Insert("INSERT INTO collect_images (student_id, collect_url) VALUES (#{studentId}, #{collectUrl})")
+    @Insert("INSERT INTO collect_images (student_id, collect_url, create_at) VALUES (#{studentId}, #{collectUrl}, #{createdAt})")
     @Options(useGeneratedKeys = true, keyProperty = "id")
     void insert(CollectImages image);
 

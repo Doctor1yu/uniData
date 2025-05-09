@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-
+import java.sql.Timestamp;
 @Service
 public class CollectImagesServiceImpl implements CollectImagesService {
     @Autowired
@@ -27,7 +27,7 @@ public class CollectImagesServiceImpl implements CollectImagesService {
         CollectImages image = new CollectImages();
         image.setStudentId(studentId);
         image.setCollectUrl(imageUrl);
-
+        image.setCreatedAt(new Timestamp(System.currentTimeMillis()));
         // 将图片信息存储到数据库
         collectImagesMapper.insert(image);
 
